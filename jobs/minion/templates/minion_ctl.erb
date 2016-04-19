@@ -16,7 +16,9 @@ case $1 in
 
     echo $$ > $PIDFILE
 
-    exec /var/vcap/packages/minion/bin/minion
+    exec /var/vcap/packages/minion/bin/minion \
+      1>>$LOG_DIR/minion.stdout.log \
+      2>>$LOG_DIR/minion.stderr.log
 
     ;;
 

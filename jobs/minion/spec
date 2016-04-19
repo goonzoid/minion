@@ -1,0 +1,8 @@
+---
+name: minion
+
+templates:
+  minion_ctl.erb: bin/minion_ctl
+
+packages:
+  - minion

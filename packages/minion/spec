@@ -1,0 +1,8 @@
+---
+name: minion
+
+dependencies:
+  - go
+
+files:
+  -  minion/*

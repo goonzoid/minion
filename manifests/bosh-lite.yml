@@ -1,0 +1,70 @@
+---
+name: minion
+
+# replace with bosh status --uuid
+director_uuid: <%= `bosh target lite > /dev/null 2>&1 && bosh status --uuid` %>
+
+releases:
+  - name: minion
+    version: latest
+
+jobs:
+  - name: minion
+    instances: 1
+    templates:
+      - name: minion
+        release: minion
+    resource_pool: minion
+    networks:
+      - name: minion
+
+networks:
+  - name: minion
+    subnets:
+      - range: 10.244.17.4/30
+        reserved: [10.244.17.5]
+        static: []
+        cloud_properties:
+          name: random
+      - range: 10.244.17.8/30
+        reserved: [10.244.17.9]
+        static: []
+        cloud_properties:
+          name: random
+      - range: 10.244.17.12/30
+        reserved: [10.244.17.13]
+        static: []
+        cloud_properties:
+          name: random
+      - range: 10.244.17.16/30
+        reserved: [10.244.17.17]
+        static: []
+        cloud_properties:
+          name: random
+      - range: 10.244.17.20/30
+        reserved: [10.244.17.21]
+        static: []
+        cloud_properties:
+          name: random
+
+resource_pools:
+  - name: minion
+    network: minion
+    stemcell:
+      name: bosh-warden-boshlite-ubuntu-trusty-go_agent
+      version: latest
+    cloud_properties:
+      name: random
+
+compilation:
+  workers: 3
+  network: minion
+  cloud_properties:
+    name: random
+
+update:
+  canaries: 1
+  max_in_flight: 3
+  serial: false
+  canary_watch_time: 1000-240000
+  update_watch_time: 1000-240000

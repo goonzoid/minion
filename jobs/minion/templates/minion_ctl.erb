@@ -1,0 +1,33 @@
+#!/bin/bash
+# vim: set ft=sh:
+
+RUN_DIR=/var/vcap/sys/run/minion
+LOG_DIR=/var/vcap/sys/log/minion
+PIDFILE=$RUN_DIR/minion.pid
+
+case $1 in
+
+  start)
+    mkdir -p $RUN_DIR
+    chown -R vcap:vcap $RUN_DIR
+
+    mkdir -p $LOG_DIR
+    chown -R vcap:vcap $LOG_DIR
+
+    echo $$ > $PIDFILE
+
+    exec /var/vcap/packages/minion/bin/minion
+
+    ;;
+
+  stop)
+    kill $(cat $PIDFILE)
+
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+
+    ;;
+
+esac

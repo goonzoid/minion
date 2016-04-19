@@ -1,0 +1,5 @@
+check process minion
+  with pidfile "/var/vcap/sys/run/minion/minion.pid"
+  start program "/var/vcap/jobs/minion/bin/minion_ctl start"
+  stop program "/var/vcap/jobs/minion/bin/minion_ctl stop"
+  group vcap

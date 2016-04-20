@@ -18,7 +18,8 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		cmdJson := struct {
-			Path string `json:"path"`
+			Path string   `json:"path"`
+			Args []string `json:"args"`
 		}{}
 
 		if err := json.NewDecoder(r.Body).Decode(&cmdJson); err != nil {
@@ -26,7 +27,7 @@ func main() {
 			return
 		}
 
-		cmd := exec.Command(cmdJson.Path)
+		cmd := exec.Command(cmdJson.Path, cmdJson.Args...)
 		var stdout, stderr bytes.Buffer
 		cmd.Stdout = &stdout
 		cmd.Stderr = &stderr

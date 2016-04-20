@@ -46,9 +46,9 @@ func main() {
 		}
 
 		responseJson := struct {
-			Stdout     string
-			Stderr     string
-			ExitStatus int
+			Stdout     string `json:"stdout"`
+			Stderr     string `json:"stderr"`
+			ExitStatus int    `json:"exit_status"`
 		}{
 			Stdout:     stdout.String(),
 			Stderr:     stderr.String(),

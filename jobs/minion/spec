@@ -6,3 +6,5 @@ templates:
 
 packages:
   - minion
+
+properties: {}
